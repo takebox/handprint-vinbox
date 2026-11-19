@@ -118,21 +118,6 @@ describe("every launcher that advertises the prefix also serves it", () => {
     );
   });
 
-  it("dev-static opts in and reuses the same route table", () => {
-    const source = readScript("dev-static.mjs");
-    expect(optsIntoPrefixMode(source)).toBe(true);
-    // Both of its proxies (static server and ingress) must build their routes
-    // from the shared helper rather than a hand-maintained copy. The copy this
-    // replaced had already drifted: it was missing the editor prefix.
-    expect(source).toMatch(
-      /function buildLocalServiceRouteArgs[\s\S]*?buildRouteArgs\(\s*getLocalServiceRoutes\(/,
-    );
-    const routeArgUses = source.match(
-      /\.\.\.buildLocalServiceRouteArgs\(config\)/g,
-    );
-    expect(routeArgUses).toHaveLength(2);
-  });
-
   it("dev:minimal opts in and proxies the prefix through Vite", () => {
     // This mode runs agent-server and Vite with nothing in front of them, so
     // Vite's own proxy is the only thing that can serve the prefix on the
@@ -170,18 +155,16 @@ describe("every launcher that advertises the prefix also serves it", () => {
     expect(optsIntoPrefixMode(source)).toBe(false);
   });
 
-  it("advertises the prefix on the servers that inject into the document", () => {
-    // Only the static server rewrites index.html, so only it can tell the
-    // frontend what this origin serves; the ingress in front of it routes the
-    // same prefix but proxies the document through untouched. Passing the flag
-    // to the ingress would also be a hard error — it does not accept it.
-    for (const script of ["dev-with-automation.mjs", "dev-static.mjs"]) {
-      const source = readScript(script);
-      const advertises = source.match(
-        /\.\.\.getVSCodeAdvertiseArgs\(config\)/g,
-      );
-      expect(advertises, `${script} advertises exactly once`).toHaveLength(1);
-    }
+  it("advertises the prefix on the server that injects into the document", () => {
+    // Only the ingress rewrites index.html, so only it can tell the frontend
+    // what this origin serves; passing the flag to anything that does not
+    // accept it would be a hard error.
+    const source = readScript("dev-with-automation.mjs");
+    const advertises = source.match(/\.\.\.getVSCodeAdvertiseArgs\(config\)/g);
+    expect(
+      advertises,
+      "dev-with-automation advertises exactly once",
+    ).toHaveLength(1);
 
     // Vite serves the document in full-stack dev mode, so the advertisement is
     // an env var there rather than a server flag.
@@ -222,8 +205,8 @@ describe("every launcher that advertises the prefix also serves it", () => {
   it("gates advertising on exactly the condition that adds the route", () => {
     // If these two guards ever disagree, one of the two failure modes returns:
     // an advertised prefix with no route (control opens the SPA), or a routed
-    // prefix nobody advertises (feature silently off). static-server rejects
-    // the first at startup; this pins the source of both.
+    // prefix nobody advertises (feature silently off). This pins the source of
+    // both.
     const source = readScript("dev-with-automation.mjs");
     const advertiseGuard = source.match(
       /function getVSCodeAdvertiseArgs\(config\) \{\s*if \(([^)]*)\) return \[\];/,

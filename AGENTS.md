@@ -30,7 +30,7 @@ Before adding code, confirm that the change belongs in this repository.
 | Repository | Owns | Add code there when… |
 |---|---|---|
 | [`HandPrint-AI/Handprint`](https://github.com/HandPrint-AI/Handprint) | Agent Vinbox UI, frontend state, backend selection, frontend service integration, and local-stack orchestration. | Changing UI, frontend state, or how Vinbox consumes an existing API. |
-| [`HandPrint-AI/software-agent-sdk`](https://github.com/HandPrint-AI/software-agent-sdk) | Python SDK, Agent Server, agents/tools, conversations, events, canonical REST/WebSocket API, and `clients/typescript/`. | Adding or changing backend behavior, endpoints, wire contracts, or typed client access. |
+| [`takebox/software-agent-sdk-vinbox`](https://github.com/takebox/software-agent-sdk-vinbox) | Python SDK, Agent Server, agents/tools, conversations, events, canonical REST/WebSocket API, and `clients/typescript/`. Installed in Vinbox as `pip install software-agent-sdk-vinbox`. | Adding or changing backend behavior, endpoints, wire contracts, or typed client access. |
 | [`HandPrint-AI/extensions`](https://github.com/HandPrint-AI/extensions) | Reusable public tracks, automations, plugins, and integrations. | Adding or editing reusable extension content rather than Vinbox behavior. |
 | [`HandPrint-AI/automation`](https://github.com/HandPrint-AI/automation) | Automation definitions, scheduling, webhooks, run history, and dispatch. | Changing when automations run or their scheduling/webhook lifecycle. |
 
@@ -55,14 +55,12 @@ Detailed contributor knowledge is split into tracks so it loads only for relevan
 | Track | Use for |
 |---|---|
 | [`telemetry-analytics`](.agents/tracks/telemetry-analytics/TRACK.md) | PostHog, telemetry consent/identity, typed tracking events, Cloud funnel observability, and onboarding instrumentation. |
-| [`e2e-testing`](.agents/tracks/e2e-testing/TRACK.md) | Live or mock-LLM Playwright suites, Docker E2E, E2E CI/reporting, artifacts, and failure diagnosis. |
 | [`frontend-api-contracts`](.agents/tracks/frontend-api-contracts/TRACK.md) | `src/api`, typed Agent Server calls, Cloud/runtime transport, compatibility, backends, settings, secrets, auth, and conversation contracts. |
 | [`local-stack-runtime`](.agents/tracks/local-stack-runtime/TRACK.md) | Dev launchers, runtime-services metadata, ingress, automation startup, process shutdown, centralized versions, and Docker. |
 | [`desktop-electron`](.agents/tracks/desktop-electron/TRACK.md) | Electron startup, branding, packaging, bundled Node/uv, universal macOS builds, and desktop CI. |
 | [`frontend-development`](.agents/tracks/frontend-development/TRACK.md) | React/UI work, i18n, named identifiers, MSW mock mode, lazy loading, bundle performance, and feature-specific UI invariants. |
 | [`pr-design-doc`](.agents/tracks/pr-design-doc/TRACK.md) | Writing the PR design document stored in the PR body. |
 | [`release`](.agents/tracks/release.md) | Cutting and verifying an `@handprint-ai/agent-vinbox` release. |
-| [`verify-handprint`](.agents/tracks/verify-handprint/TRACK.md) | Driving the real app like a user with `control-handprint`, the feature map of every user-facing behavior, and creating or maintaining that map. |
 
 The detailed rules live in each track's `references/guide.md`; do not copy them back into this file. Update the owning track whenever an invariant changes.
 
@@ -78,7 +76,7 @@ Create TDD tests for behavioral changes. Keep tests focused on user behavior and
 - Do not mirror literal source, fixture, translation, or class-string definitions in tests. Assert consumer behavior or an actual build/runtime contract instead, and do not export internals solely to make them testable. Preserve coverage for routing, accessibility, async behavior, behavioral contracts, and functional CSS/build contracts.
 - Use the minimum number of cases that fully cover the intended behavior and edge cases.
 
-Use the `e2e-testing` track for suite selection and E2E-specific requirements.
+Use the `frontend-development` track for UI and test requirements.
 
 ## Specifications and Releases
 

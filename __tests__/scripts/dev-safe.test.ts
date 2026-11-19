@@ -514,13 +514,13 @@ describe("buildAgentServerCommand", () => {
     // Defaults to the released PyPI version with all SDK packages pinned to same version
     expect(cmd.args).toEqual([
       "--from",
-      "openhands-agent-server==1.53.0",
+      "handprint-vinbox-agent-server==1.53.0",
       "--with",
-      "openhands-sdk==1.53.0",
+      "handprint-vinbox-sdk==1.53.0",
       "--with",
-      "openhands-tools==1.53.0",
+      "handprint-vinbox-tools==1.53.0",
       "--with",
-      "openhands-workspace==1.53.0",
+      "handprint-vinbox-workspace==1.53.0",
       "--with",
       "posthog>=6,<7",
       "agent-server",
@@ -534,17 +534,17 @@ describe("buildAgentServerCommand", () => {
     const cmd = buildAgentServerCommand({ OH_AGENT_SERVER_VERSION: "1.18.0" });
 
     expect(cmd.command).toBe("uvx");
-    // Uses --from syntax because executable name (agent-server) differs from package name (openhands-agent-server)
+    // Uses --from syntax because executable name (agent-server) differs from package name (handprint-vinbox-agent-server)
     // All SDK packages are pinned to the same version
     expect(cmd.args).toEqual([
       "--from",
-      "openhands-agent-server==1.18.0",
+      "handprint-vinbox-agent-server==1.18.0",
       "--with",
-      "openhands-sdk==1.18.0",
+      "handprint-vinbox-sdk==1.18.0",
       "--with",
-      "openhands-tools==1.18.0",
+      "handprint-vinbox-tools==1.18.0",
       "--with",
-      "openhands-workspace==1.18.0",
+      "handprint-vinbox-workspace==1.18.0",
       "--with",
       "posthog>=6,<7",
       "agent-server",
@@ -563,13 +563,13 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.args).toEqual([
       "--reinstall",
       "--from",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@feature-branch#subdirectory=openhands-agent-server",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@feature-branch#subdirectory=vinbox-agent-server",
       "--with",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@feature-branch#subdirectory=openhands-sdk",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@feature-branch#subdirectory=vinbox-sdk",
       "--with",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@feature-branch#subdirectory=openhands-tools",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@feature-branch#subdirectory=vinbox-tools",
       "--with",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@feature-branch#subdirectory=openhands-workspace",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@feature-branch#subdirectory=vinbox-workspace",
       "--with",
       "posthog>=6,<7",
       "agent-server",
@@ -586,13 +586,13 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.args).toEqual([
       "--reinstall",
       "--from",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@abc1234#subdirectory=openhands-agent-server",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@abc1234#subdirectory=vinbox-agent-server",
       "--with",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@abc1234#subdirectory=openhands-sdk",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@abc1234#subdirectory=vinbox-sdk",
       "--with",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@abc1234#subdirectory=openhands-tools",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@abc1234#subdirectory=vinbox-tools",
       "--with",
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@abc1234#subdirectory=openhands-workspace",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@abc1234#subdirectory=vinbox-workspace",
       "--with",
       "posthog>=6,<7",
       "agent-server",
@@ -611,9 +611,9 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.command).toBe("uvx");
     expect(cmd.args).toContain("--from");
     expect(cmd.args).toContain(
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@feature-branch#subdirectory=openhands-agent-server",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@feature-branch#subdirectory=vinbox-agent-server",
     );
-    expect(cmd.args).not.toContain("openhands-agent-server==1.18.0");
+    expect(cmd.args).not.toContain("handprint-vinbox-agent-server==1.18.0");
   });
 
   it("uses local path with editable workspace packages when OH_AGENT_SERVER_LOCAL_PATH is set", () => {
@@ -624,13 +624,13 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.args).toEqual([
       "--reinstall",
       "--from",
-      path.join(sdk, "openhands-agent-server"),
+      path.join(sdk, "handprint-vinbox-agent-server"),
       "--with-editable",
-      path.join(sdk, "openhands-sdk"),
+      path.join(sdk, "handprint-vinbox-sdk"),
       "--with-editable",
-      path.join(sdk, "openhands-tools"),
+      path.join(sdk, "handprint-vinbox-tools"),
       "--with-editable",
-      path.join(sdk, "openhands-workspace"),
+      path.join(sdk, "handprint-vinbox-workspace"),
       "--with",
       "posthog>=6,<7",
       "agent-server",
@@ -649,11 +649,11 @@ describe("buildAgentServerCommand", () => {
     });
 
     expect(cmd.source).toBe(`local (${sdk})`);
-    expect(cmd.args).toContain(path.join(sdk, "openhands-agent-server"));
+    expect(cmd.args).toContain(path.join(sdk, "handprint-vinbox-agent-server"));
     expect(cmd.args).not.toContain(
-      "git+https://github.com/HandPrint-AI/software-agent-sdk@feature-branch#subdirectory=openhands-agent-server",
+      "git+https://github.com/takebox/software-agent-sdk-vinbox@feature-branch#subdirectory=vinbox-agent-server",
     );
-    expect(cmd.args).not.toContain("openhands-agent-server==1.18.0");
+    expect(cmd.args).not.toContain("handprint-vinbox-agent-server==1.18.0");
   });
 
   it("passes --import-modules to the agent-server, after the executable, in every source mode", () => {
@@ -691,10 +691,10 @@ describe("validateLocalAgentServerPath", () => {
     const tmp = mkdtempSync(path.join(tmpdir(), "sdk-"));
     try {
       for (const subdir of [
-        "openhands-agent-server",
-        "openhands-sdk",
-        "openhands-tools",
-        "openhands-workspace",
+        "handprint-vinbox-agent-server",
+        "handprint-vinbox-sdk",
+        "handprint-vinbox-tools",
+        "handprint-vinbox-workspace",
       ]) {
         mkdirSync(path.join(tmp, subdir));
       }
@@ -713,12 +713,12 @@ describe("validateLocalAgentServerPath", () => {
   it("throws when a workspace package subdirectory is missing", () => {
     const tmp = mkdtempSync(path.join(tmpdir(), "sdk-"));
     try {
-      mkdirSync(path.join(tmp, "openhands-agent-server"));
-      mkdirSync(path.join(tmp, "openhands-sdk"));
-      mkdirSync(path.join(tmp, "openhands-tools"));
-      // openhands-workspace is intentionally absent
+      mkdirSync(path.join(tmp, "handprint-vinbox-agent-server"));
+      mkdirSync(path.join(tmp, "handprint-vinbox-sdk"));
+      mkdirSync(path.join(tmp, "handprint-vinbox-tools"));
+      // handprint-vinbox-workspace is intentionally absent
       expect(() => validateLocalAgentServerPath(tmp)).toThrow(
-        /openhands-workspace/,
+        /handprint-vinbox-workspace/,
       );
     } finally {
       rmSync(tmp, { recursive: true, force: true });

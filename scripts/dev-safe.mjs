@@ -46,12 +46,12 @@ export const VSCODE_BASE_PATH = SHARED_DEFAULTS.paths.vscodeBasePath;
 const DEFAULT_VITE_PORT = 3001;
 const DEFAULT_WAIT_TIMEOUT_MS = 30_000;
 const DEFAULT_AGENT_SERVER_PACKAGE = SHARED_DEFAULTS.packages.agentServer;
-const AGENT_SERVER_GIT_REPO = "https://github.com/HandPrint-AI/software-agent-sdk";
+const AGENT_SERVER_GIT_REPO = "https://github.com/takebox/software-agent-sdk-vinbox";
 const LOCAL_AGENT_SERVER_SUBDIRS = [
-  "openhands-agent-server",
-  "openhands-sdk",
-  "openhands-tools",
-  "openhands-workspace",
+  "handprint-vinbox-agent-server",
+  "handprint-vinbox-sdk",
+  "handprint-vinbox-tools",
+  "handprint-vinbox-workspace",
 ];
 const DEFAULT_AGENT_SERVER_VERSION = SHARED_DEFAULTS.versions.agentServer;
 const DEFAULT_AGENT_SERVER_TELEMETRY_POSTHOG_API_KEY =
@@ -413,7 +413,7 @@ export const AGENT_SERVER_IMPORT_MODULES = "vinbox_ui_tool";
  * Environment variables (highest precedence first):
  * - OH_AGENT_SERVER_LOCAL_PATH: Absolute path to a software-agent-sdk checkout.
  *   Runs the local checkout via uvx with editable installs of the workspace
- *   packages (openhands-sdk, openhands-tools, openhands-workspace) so source
+ *   packages (handprint-vinbox-sdk, handprint-vinbox-tools, handprint-vinbox-workspace) so source
  *   edits are picked up without a manual reinstall. The agent-server itself
  *   is rebuilt from local source on each invocation (--reinstall).
  * - OH_AGENT_SERVER_GIT_REF: Git commit SHA or branch name
@@ -443,13 +443,13 @@ export function buildAgentServerCommand(env = process.env) {
     uvxArgs.push(
       "--reinstall",
       "--from",
-      path.join(localPath, "openhands-agent-server"),
+      path.join(localPath, "handprint-vinbox-agent-server"),
       "--with-editable",
-      path.join(localPath, "openhands-sdk"),
+      path.join(localPath, "handprint-vinbox-sdk"),
       "--with-editable",
-      path.join(localPath, "openhands-tools"),
+      path.join(localPath, "handprint-vinbox-tools"),
       "--with-editable",
-      path.join(localPath, "openhands-workspace"),
+      path.join(localPath, "handprint-vinbox-workspace"),
       "--with",
       AGENT_SERVER_POSTHOG_CONSTRAINT,
       "agent-server",
@@ -458,7 +458,7 @@ export function buildAgentServerCommand(env = process.env) {
   } else if (gitRef) {
     // Use git ref with subdirectory syntax for uv workspace monorepo.
     // The software-agent-sdk repo has packages in subdirectories:
-    // openhands-agent-server/, openhands-sdk/, openhands-tools/, openhands-workspace/
+    // handprint-vinbox-agent-server/, handprint-vinbox-sdk/, handprint-vinbox-tools/, handprint-vinbox-workspace/
     // All four must come from the same ref so inter-package APIs stay in sync.
     //
     // --reinstall is required because the git branch may carry the same version
@@ -469,31 +469,31 @@ export function buildAgentServerCommand(env = process.env) {
     uvxArgs.push(
       "--reinstall",
       "--from",
-      `${baseGitUrl}#subdirectory=openhands-agent-server`,
+      `${baseGitUrl}#subdirectory=vinbox-agent-server`,
       "--with",
-      `${baseGitUrl}#subdirectory=openhands-sdk`,
+      `${baseGitUrl}#subdirectory=vinbox-sdk`,
       "--with",
-      `${baseGitUrl}#subdirectory=openhands-tools`,
+      `${baseGitUrl}#subdirectory=vinbox-tools`,
       "--with",
-      `${baseGitUrl}#subdirectory=openhands-workspace`,
+      `${baseGitUrl}#subdirectory=vinbox-workspace`,
       "--with",
       AGENT_SERVER_POSTHOG_CONSTRAINT,
       "agent-server",
     );
     source = `git (${gitRef})`;
   } else if (version) {
-    // Use specific PyPI version: uvx --from openhands-agent-server==version agent-server
+    // Use specific PyPI version: uvx --from handprint-vinbox-agent-server==version agent-server
     // The package name differs from the executable name, so we need --from syntax
     // Pin all SDK packages to the same version for consistency
     uvxArgs.push(
       "--from",
       `${DEFAULT_AGENT_SERVER_PACKAGE}==${version}`,
       "--with",
-      `openhands-sdk==${version}`,
+      `handprint-vinbox-sdk==${version}`,
       "--with",
-      `openhands-tools==${version}`,
+      `handprint-vinbox-tools==${version}`,
       "--with",
-      `openhands-workspace==${version}`,
+      `handprint-vinbox-workspace==${version}`,
     );
     uvxArgs.push("--with", AGENT_SERVER_POSTHOG_CONSTRAINT);
     uvxArgs.push("agent-server");
@@ -505,11 +505,11 @@ export function buildAgentServerCommand(env = process.env) {
       "--from",
       `${DEFAULT_AGENT_SERVER_PACKAGE}==${DEFAULT_AGENT_SERVER_VERSION}`,
       "--with",
-      `openhands-sdk==${DEFAULT_AGENT_SERVER_VERSION}`,
+      `handprint-vinbox-sdk==${DEFAULT_AGENT_SERVER_VERSION}`,
       "--with",
-      `openhands-tools==${DEFAULT_AGENT_SERVER_VERSION}`,
+      `handprint-vinbox-tools==${DEFAULT_AGENT_SERVER_VERSION}`,
       "--with",
-      `openhands-workspace==${DEFAULT_AGENT_SERVER_VERSION}`,
+      `handprint-vinbox-workspace==${DEFAULT_AGENT_SERVER_VERSION}`,
     );
     uvxArgs.push("--with", AGENT_SERVER_POSTHOG_CONSTRAINT);
     uvxArgs.push("agent-server");

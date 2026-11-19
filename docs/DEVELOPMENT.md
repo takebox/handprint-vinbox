@@ -12,8 +12,8 @@ Docker.
 
 This repository contains the Agent Vinbox frontend and local-stack orchestration. Use the sibling repositories for their owned layers:
 
-- [`OpenHands/software-agent-sdk`](https://github.com/HandPrint-AI/software-agent-sdk) owns the Python SDK, Agent Server, agent/tool behavior, conversations, workspaces, events, and server API.
-- [`software-agent-sdk/clients/typescript`](https://github.com/HandPrint-AI/software-agent-sdk/tree/main/clients/typescript) owns browser-compatible typed access to that Agent Server API. Add client methods there rather than reimplementing API calls in Vinbox.
+- [`OpenHands/software-agent-sdk`](https://github.com/takebox/software-agent-sdk-vinbox) owns the Python SDK, Agent Server, agent/tool behavior, conversations, workspaces, events, and server API.
+- [`software-agent-sdk/clients/typescript`](https://github.com/takebox/software-agent-sdk-vinbox/tree/main/clients/typescript) owns browser-compatible typed access to that Agent Server API. Add client methods there rather than reimplementing API calls in Vinbox.
 - [`Handprint/extensions`](https://github.com/HandPrint-AI/extensions) owns reusable tracks, plugins, automations, and integrations; [`Handprint/automation`](https://github.com/HandPrint-AI/automation) owns automation definitions, scheduling, webhooks, run history, and dispatching; Agent Server/SDK code executes the dispatched conversations.
 
 When a feature crosses repositories, implement the backend contract in the SDK first, expose it through `typescript-client`, and consume it in Vinbox. Coordinate automation lifecycle changes in `automation`. Version pins, local-stack overrides, and PR ordering are in [Cross-repository version compatibility](#cross-repository-version-compatibility). See the repository [contributor notes](../AGENTS.md) and follow the [custom code-review guide](../.agents/tracks/custom-codereview-guide.md) for every pull request.
@@ -78,8 +78,8 @@ unsupported and often looks like a product bug.
 Owning repositories:
 
 - [`Handprint/Handprint`](https://github.com/HandPrint-AI/Handprint) (this repo) — Agent Vinbox
-- [`OpenHands/software-agent-sdk`](https://github.com/HandPrint-AI/software-agent-sdk) — Python SDK and Agent Server
-- [`software-agent-sdk/clients/typescript`](https://github.com/HandPrint-AI/software-agent-sdk/tree/main/clients/typescript) — `@handprint-ai/typescript-client`
+- [`OpenHands/software-agent-sdk`](https://github.com/takebox/software-agent-sdk-vinbox) — Python SDK and Agent Server
+- [`software-agent-sdk/clients/typescript`](https://github.com/takebox/software-agent-sdk-vinbox/tree/main/clients/typescript) — `@handprint-ai/typescript-client`
 - [`Handprint/automation`](https://github.com/HandPrint-AI/automation) — scheduling, webhooks, run history
 - [`Handprint/extensions`](https://github.com/HandPrint-AI/extensions) — `@handprint-ai/extensions` tracks and integrations
 
@@ -122,11 +122,11 @@ contract pin is independent of Vinbox `versions.agentServer`.
 automation. Leaving an override unset means "use the pin above", not Git
 `main`.
 
-**Agent Server** ([`software-agent-sdk`](https://github.com/HandPrint-AI/software-agent-sdk)):
+**Agent Server** ([`software-agent-sdk`](https://github.com/takebox/software-agent-sdk-vinbox)):
 
 1. `OH_AGENT_SERVER_LOCAL_PATH` — absolute path to a checkout that contains
-   `openhands-agent-server`, `openhands-sdk`, `openhands-tools`, and
-   `openhands-workspace`. The agent-server package is rebuilt from local
+   `handprint-vinbox-agent-server`, `handprint-vinbox-sdk`, `handprint-vinbox-tools`, and
+   `handprint-vinbox-workspace`. The agent-server package is rebuilt from local
    source on each start (`uvx --reinstall`); the other workspace packages are
    installed editable.
 2. `OH_AGENT_SERVER_GIT_REF` — branch, tag, or commit. All four workspace
@@ -202,7 +202,7 @@ Agent Vinbox. Automation scheduling flows Vinbox → `automation` → Agent
 Server / SDK.
 
 REST deprecation and the removal runway are owned by
-`software-agent-sdk` (`openhands-agent-server/AGENTS.md`). Vinbox must not
+`software-agent-sdk` (`handprint-vinbox-agent-server/AGENTS.md`). Vinbox must not
 skip the client release step or consume an unpublished client SHA.
 
 Event wire types follow the same order: SDK Pydantic model, then TypeScript

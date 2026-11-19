@@ -20,7 +20,7 @@ Agent Vinbox is not responsible for:
 
 ## Runtime services
 
-The primary backend is the [Handprint Agent Server](https://github.com/HandPrint-AI/software-agent-sdk/tree/main/openhands-agent-server/handprint/agent_server). Agent Vinbox can connect to one or more Agent Server instances and switch between them from the UI.
+The primary backend is the [Handprint Agent Server](https://github.com/takebox/software-agent-sdk-vinbox/tree/main/handprint-vinbox-agent-server/handprint/agent_server). Agent Vinbox can connect to one or more Agent Server instances and switch between them from the UI.
 
 Optional runtime services include:
 

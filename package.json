@@ -13,9 +13,6 @@
   "bugs": {
     "url": "https://github.com/HandPrint-AI/Handprint/issues"
   },
-  "bin": {
-    "agent-vinbox": "bin/agent-vinbox.mjs"
-  },
   "engines": {
     "node": ">=24"
   },
@@ -72,20 +69,13 @@
   },
   "scripts": {
     "dev": "node --env-file-if-exists=.env scripts/dev-with-automation.mjs",
-    "dev:static": "node --env-file-if-exists=.env scripts/dev-static.mjs",
     "dev:extra-backend": "node --env-file-if-exists=.env scripts/dev-extra-backend.mjs",
     "dev:minimal": "node --env-file-if-exists=.env scripts/dev-safe.mjs",
     "dev:frontend": "npm run make-i18n && cross-env VITE_MOCK_API=false react-router dev",
     "dev:mock": "npm run make-i18n && cross-env VITE_MOCK_API=true react-router dev",
     "build": "npm run build:app",
     "build:mock": "npm run make-i18n && cross-env VITE_MOCK_API=true react-router build",
-    "start": "npx sirv-cli build/ --single",
     "test": "npm run make-i18n && vitest run",
-    "test:e2e": "playwright test --pass-with-no-tests",
-    "test:e2e:live": "node --env-file-if-exists=.env tests/e2e/live/scripts/run-live-e2e.mjs",
-    "test:e2e:mock-llm": "playwright test --config=playwright.mock-llm.config.ts",
-    "test:e2e:mock-llm:docker": "playwright test --config=playwright.mock-llm-docker.config.ts",
-    "test:e2e:bind-policy": "playwright test --config=playwright.bind-policy.config.ts",
     "test:coverage": "npm run make-i18n && vitest run --coverage",
     "test:mutation": "npm run make-i18n && stryker run",
     "test:mutation:diff": "npm run make-i18n && node scripts/stryker-diff.mjs",
@@ -96,14 +86,12 @@
     "prelint": "npm run make-i18n",
     "lint": "npm run typecheck && eslint src && prettier --check src/**/*.{ts,tsx}",
     "lint:fix": "eslint src --fix && prettier --write src/**/*.{ts,tsx}",
-    "postinstall": "node -e \"if (process.env.npm_config_global === 'true') { console.log('\\n\\x1b[32m\\x1b[1m\\u2713 @handprint-ai/agent-vinbox installed!\\x1b[0m\\n\\nTo start Agent Vinbox, run:\\n\\n  \\x1b[36m\\x1b[1magent-vinbox\\x1b[0m\\n\\nThis launches the full stack at \\x1b[36mhttp://localhost:8000\\x1b[0m.\\n\\nDocs: https://handprint.juglow.my.id/docs/handprint/usage/agent-vinbox/setup\\n') }\"",
     "prepare": "husky",
     "typecheck": "react-router typegen && tsc",
     "typecheck:staged": "react-router typegen && npx tsc --noEmit --skipLibCheck",
     "check-translation-completeness": "node scripts/check-translation-completeness.cjs",
     "build:app": "npm run make-i18n && react-router build",
     "build:lib": "npm run make-i18n && react-router typegen && cross-env BUILD_LIB=true vite build && tsc -p tsconfig.lib.json",
-    "build:docker": "node scripts/docker-build.mjs",
     "example:acp-docker:env": "node scripts/gen-acp-docker-env.mjs",
     "predesktop": "node scripts/brand-dev-electron.mjs",
     "desktop": "npm run build:app && electron electron",
@@ -197,8 +185,6 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "bin",
-    "build",
     "config",
     "scripts",
     "tools"

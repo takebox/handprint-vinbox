@@ -12,10 +12,10 @@
  *
  * 2. That the released automation package (openhands-automation on PyPI)
  *    uses the SDK version expected for that automation release for all agent SDK libraries:
- *   - openhands-sdk
- *   - openhands-tools
- *   - openhands-workspace
- *   - openhands-agent-server
+ *   - handprint-vinbox-sdk
+ *   - handprint-vinbox-tools
+ *   - handprint-vinbox-workspace
+ *   - handprint-vinbox-agent-server
  *
  * This script checks the RELEASED PyPI version of openhands-automation (as specified
  * by versions.automation in config/defaults.json), not the main branch.
@@ -102,10 +102,10 @@ const colors = {
 
 // SDK packages that must have matching versions
 const SDK_PACKAGES = [
-  "openhands-sdk",
-  "openhands-tools",
-  "openhands-workspace",
-  "openhands-agent-server",
+  "handprint-vinbox-sdk",
+  "handprint-vinbox-tools",
+  "handprint-vinbox-workspace",
+  "handprint-vinbox-agent-server",
 ];
 
 // Mirrors the SDK's ACP provider registry. Must track versions.agentServer:
@@ -300,9 +300,9 @@ async function fetchPyPIDependencies(packageName, version) {
  * Parse PyPI requires_dist array and extract SDK package versions
  *
  * PyPI returns dependencies in PEP 508 format like:
- *   "openhands-sdk>=1.53.0,<2.0.0"
- *   "openhands-tools==1.53.0"
- *   "openhands-workspace (>=1.53.0)"
+ *   "handprint-vinbox-sdk>=1.53.0,<2.0.0"
+ *   "handprint-vinbox-tools==1.53.0"
+ *   "handprint-vinbox-workspace (>=1.53.0)"
  */
 function parseSdkVersionsFromRequiresDist(requiresDist) {
   const versions = {};

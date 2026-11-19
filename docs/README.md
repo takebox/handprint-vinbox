@@ -9,4 +9,4 @@ This directory contains the project documentation.
 - [Self-hosting guide](./SELF_HOSTING.md)
 - [Integrating DefenseClaw](./DefenseClaw.md): run the DefenseClaw security governance layer alongside the Agent Server.
 - [Testing matrix](./TESTING_MATRIX.md): release smoke-test coverage across installers, operating systems, and agents.
-- [Feature verification map](../.agents/tracks/verify-handprint/references/feature-map/README.md): every user-facing feature with entry points and rerunnable `control-handprint` recipes; start with the [verify-handprint track](../.agents/tracks/verify-handprint/TRACK.md) to launch and drive the real app.
+- [Vinbox flow map](../VINBOX-MAP.md): which part of HandPrint belongs to Vinbox, and what was removed from this repo.

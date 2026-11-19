@@ -1,6 +1,6 @@
 # Integrating DefenseClaw with Agent Vinbox
 
-[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is a security governance layer for agentic AI runtimes — it scans tracks and MCP servers before they run, inspects LLM traffic at runtime, and produces durable audit evidence. This guide explains how to run DefenseClaw alongside the [Handprint Agent Server](https://github.com/HandPrint-AI/software-agent-sdk/tree/main/openhands-agent-server) that powers Agent Vinbox, without making any code-level changes to either project.
+[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is a security governance layer for agentic AI runtimes — it scans tracks and MCP servers before they run, inspects LLM traffic at runtime, and produces durable audit evidence. This guide explains how to run DefenseClaw alongside the [Handprint Agent Server](https://github.com/takebox/software-agent-sdk-vinbox/tree/main/handprint-vinbox-agent-server) that powers Agent Vinbox, without making any code-level changes to either project.
 
 > **Status:** DefenseClaw is purpose-built around the OpenClaw runtime and its TypeScript plugin hooks. The integration described here targets the lowest-friction overlap points — track injection, LLM proxying, CLI scanning, and audit export — that work without modifying Agent Vinbox or DefenseClaw source code. [Future work](#future-work-code-level-extensions) describes deeper hooks that would require code changes.
 
@@ -131,7 +131,7 @@ export OH_LLM__BASE_URL="http://localhost:4000"
 npm run dev
 ```
 
-> Consult the Agent Server [settings schema](https://github.com/HandPrint-AI/software-agent-sdk/blob/main/openhands-agent-server/handprint/agent_server/settings_router.py) for the exact environment variable name used in your deployment.
+> Consult the Agent Server [settings schema](https://github.com/takebox/software-agent-sdk-vinbox/blob/main/handprint-vinbox-agent-server/handprint/agent_server/settings_router.py) for the exact environment variable name used in your deployment.
 
 **Start the guardrail in observe mode (safe default) or action mode:**
 
@@ -267,7 +267,7 @@ class DefenseClawSecurityAnalyzer(SecurityAnalyzer):
 
 ### 2. Track install pipeline integration
 
-The Agent Server's `tracks_service.py` (`service_install_track`) runs track validation during install. A pre-install hook that calls `defenseclaw track scan` and fails the install on HIGH/CRITICAL findings would enforce a mandatory scan gate — no track reaches the agent without passing DefenseClaw's scanner. This change would live in `openhands-agent-server`.
+The Agent Server's `tracks_service.py` (`service_install_track`) runs track validation during install. A pre-install hook that calls `defenseclaw track scan` and fails the install on HIGH/CRITICAL findings would enforce a mandatory scan gate — no track reaches the agent without passing DefenseClaw's scanner. This change would live in `handprint-vinbox-agent-server`.
 
 ### 3. Hooks integration
 
@@ -294,7 +294,7 @@ DefenseClaw's registry system (`defenseclaw registry add`) ingests external trac
 - [DefenseClaw API Reference](https://github.com/cisco-ai-defense/defenseclaw/blob/main/docs/API.md)
 - [DefenseClaw Guardrail Architecture](https://github.com/cisco-ai-defense/defenseclaw/blob/main/docs/GUARDRAIL.md)
 - [DefenseClaw CodeGuard Track](https://github.com/cisco-ai-defense/defenseclaw/blob/main/tracks/codeguard/TRACK.md)
-- [Handprint Agent Server](https://github.com/HandPrint-AI/software-agent-sdk/tree/main/openhands-agent-server)
+- [Handprint Agent Server](https://github.com/takebox/software-agent-sdk-vinbox/tree/main/handprint-vinbox-agent-server)
 - [Handprint SDK Security Analyzer](https://handprint.juglow.my.id/sdk/arch/security.md)
 - [Agent Vinbox Self-Hosting](./SELF_HOSTING.md)
 

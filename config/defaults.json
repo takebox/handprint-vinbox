@@ -29,10 +29,10 @@
     "vscodeBasePath": "/vscode"
   },
   "packages": {
-    "agentServer": "openhands-agent-server",
+    "agentServer": "handprint-vinbox-agent-server",
     "automation": "openhands-automation",
-    "tools": "openhands-tools",
-    "workspace": "openhands-workspace"
+    "tools": "handprint-vinbox-tools",
+    "workspace": "handprint-vinbox-workspace"
   },
   "telemetry": {
     "posthogApiKey": "phc_kBtz5nKmxVRRQ7HtPwr2QX9eMC5j65zE86QKocVNwb4U",

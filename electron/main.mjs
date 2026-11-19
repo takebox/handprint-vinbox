@@ -278,7 +278,7 @@ async function waitForUrl(url, timeoutMs = 120_000, intervalMs = 600) {
  * serving requests, not just that the ingress proxy is up.
  *
  * On first launch, `uvx` has to download a Python toolchain and install
- * `openhands-agent-server` and its workspace deps from PyPI, which can
+ * `handprint-vinbox-agent-server` and its workspace deps from PyPI, which can
  * easily take a few minutes on a slow network. We poll the route end-to-end
  * (through ingress on port 8000, so a missing or restarted ingress is also
  * caught) instead of just probing the static-server fallback that

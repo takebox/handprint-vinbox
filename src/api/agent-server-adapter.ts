@@ -1514,7 +1514,7 @@ export function buildStartPlanningConversationRequest(options: {
       // mirrors how the frontend builds every agent, so the local planner is
       // not context-starved relative to the code agent.
       agent_context: agentContext,
-      // Mirror the SDK planning preset's condenser (openhands-tools preset
+      // Mirror the SDK planning preset's condenser (vinbox-tools preset
       // `get_planning_condenser`): a larger rolling window and more pinned
       // initial context than the default, with its own usage_id so its
       // summarization LLM calls are attributed separately. The planning

@@ -87,10 +87,10 @@ you are running inside of — NOT the automation backend.
 ```
 
 
-- README expectation: keep the first section as a concrete, chronological from-scratch quickstart for running this frontend against a real `openhands-agent-server` (clone, install prerequisites, optional `.env`, run `npm run dev`).
+- README expectation: keep the first section as a concrete, chronological from-scratch quickstart for running this frontend against a real `handprint-vinbox-agent-server` (clone, install prerequisites, optional `.env`, run `npm run dev`).
 - Windows-specific command syntax (PowerShell) lives in `README.windows.md`. When changing install / Docker sandbox instructions in `README.md`, update `README.windows.md` in the same PR to keep them in sync.
 - `scripts/dev-safe.mjs` uses `uvx` for temporary agent-server installation — no permanent `uv tool install` needed. Environment variables (highest precedence first):
-  - `OH_AGENT_SERVER_LOCAL_PATH` — absolute path to a local `software-agent-sdk` checkout. Runs the local checkout via `uvx` with `--with-editable` for `openhands-sdk`/`openhands-tools`/`openhands-workspace` and `--reinstall` for `openhands-agent-server`, so SDK edits are picked up on restart. Highest precedence.
+  - `OH_AGENT_SERVER_LOCAL_PATH` — absolute path to a local `software-agent-sdk` checkout. Runs the local checkout via `uvx` with `--with-editable` for `handprint-vinbox-sdk`/`handprint-vinbox-tools`/`handprint-vinbox-workspace` and `--reinstall` for `handprint-vinbox-agent-server`, so SDK edits are picked up on restart. Highest precedence.
   - `OH_AGENT_SERVER_GIT_REF` — git commit SHA or branch name (takes precedence over version)
   - `OH_AGENT_SERVER_VERSION` — specific PyPI version (e.g., "1.53.0")
   - `OH_SECRET_KEY` — secret key for settings encryption; auto-generated and persisted to `~/.handprint/agent-vinbox/secret-key.txt` on first run (same file Docker uses), ensuring dev mode and Docker share the same key when both mount the same `~/.handprint` directory. Override with the env var to pin a specific key.
