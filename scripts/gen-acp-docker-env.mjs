@@ -28,7 +28,7 @@ const projectRoot = join(__dirname, "..");
 
 /**
  * @param {{ images: { agentServer: string }, versions: { agentServer: string } }} config
- * @returns {string} e.g. "ghcr.io/openhands/agent-server:1.28.1-python"
+ * @returns {string} e.g. "ghcr.io/handprint/agent-server:1.28.1-python"
  */
 export function computeAgentServerImage(config) {
   return `${config.images.agentServer}:${config.versions.agentServer}-python`;

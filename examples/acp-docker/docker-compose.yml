@@ -24,7 +24,7 @@ services:
     #   npm run example:acp-docker:env   # writes AGENT_SERVER_IMAGE to .env
     # (Rationale — the compatibility floor and the #3510 LookupSecret fix — is in
     # README.md §1 and the env-sync test.)
-    image: ${AGENT_SERVER_IMAGE:-ghcr.io/openhands/agent-server:latest-python}
+    image: ${AGENT_SERVER_IMAGE:-ghcr.io/handprint/agent-server:latest-python}
     container_name: oh-acp
     ports:
       # host:container — Vinbox points VITE_BACKEND_BASE_URL at http://localhost:9010.

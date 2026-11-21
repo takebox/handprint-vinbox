@@ -102,7 +102,7 @@ describe("gen-acp-docker-env.mjs is safe to import", () => {
 
 describe("upsertEnvLine", () => {
   const line =
-    "AGENT_SERVER_IMAGE=ghcr.io/openhands/agent-server:1.28.1-python";
+    "AGENT_SERVER_IMAGE=ghcr.io/handprint/agent-server:1.28.1-python";
 
   it("appends the line to an empty file", () => {
     expect(upsertEnvLine("", line)).toBe(`${line}\n`);
@@ -111,7 +111,7 @@ describe("upsertEnvLine", () => {
   it("replaces an existing assignment in place, preserving other lines", () => {
     const existing =
       "SESSION_API_KEY=abc\n" +
-      "AGENT_SERVER_IMAGE=ghcr.io/openhands/agent-server:1.25.0-python\n" +
+      "AGENT_SERVER_IMAGE=ghcr.io/handprint/agent-server:1.25.0-python\n" +
       "HAIJUN_CODE_OAUTH_TOKEN=zzz\n";
     expect(upsertEnvLine(existing, line)).toBe(
       `SESSION_API_KEY=abc\n${line}\nHAIJUN_CODE_OAUTH_TOKEN=zzz\n`,
@@ -128,7 +128,7 @@ describe("upsertEnvLine", () => {
     // .env.example ships `# AGENT_SERVER_IMAGE=...` as a documented knob; after
     // `cp .env.example .env` the comment stays and the generator adds the value.
     const existing =
-      "# AGENT_SERVER_IMAGE=ghcr.io/openhands/agent-server:latest-python\n";
+      "# AGENT_SERVER_IMAGE=ghcr.io/handprint/agent-server:latest-python\n";
     expect(upsertEnvLine(existing, line)).toBe(
       `${existing.trimEnd()}\n${line}\n`,
     );

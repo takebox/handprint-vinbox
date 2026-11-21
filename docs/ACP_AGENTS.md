@@ -153,7 +153,7 @@ point Vinbox at it). In short:
 # managed Vinbox App backend bridge). Override SHA with a newer build.
 docker run -d --name oh-acp -p 8010:8000 -v acp-data:/workspace \
   -v "$(pwd)/tools:/vinbox-tools:ro" -e OH_EXTRA_PYTHON_PATH=/vinbox-tools \
-  ghcr.io/openhands/agent-server:1.51.0-python
+  ghcr.io/handprint/agent-server:1.51.0-python
 
 # 2. Vinbox pointed at the container.
 VITE_BACKEND_BASE_URL=http://localhost:9010 npm run dev:frontend
